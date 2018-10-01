@@ -27,7 +27,7 @@ after (async function () {
   global.browser.close();
 });
 
-describe('n-queens', async function () {
+describe('chatterbox client', async function () {
 
   before(async function () {
     var cases = await global.page.evaluate(() => {
@@ -52,9 +52,9 @@ describe('n-queens', async function () {
       cases.forEach(function (test, i) {
         it(test, function() {
           if(!passed[i]) {
-            console.log('\t' + '-'.repeat(failed[i].length));
+            console.log('\t' + '-'.repeat(Math.min(100, failed[i].length)));
             console.log('\t' + failed[i]);
-            console.log('\t' + '-'.repeat(failed[i].length))
+            console.log('\t' + '-'.repeat(Math.min(100, failed[i].length)));
           }
           expect(passed[i]).to.eql(true);
         })
