@@ -22,7 +22,7 @@ describe('chatterbox', function() {
       ajaxSpy.reset();
     });
 
-    describe('sending', function() {
+    describe('sending *****', function() {
       it('should have a send method', function() {
         expect(app.send).to.be.ok;
       });
@@ -52,7 +52,7 @@ describe('chatterbox', function() {
 
     });
 
-    describe('fetching', function() {
+    describe('fetching *****', function() {
       it('should have a fetch method', function() {
         expect(app.fetch).to.be.ok;
       });
@@ -67,7 +67,7 @@ describe('chatterbox', function() {
 
     });
 
-    describe('chatroom behavior', function() {
+    describe('chatroom behavior **', function() {
       it('should be able to clear messages from the DOM', function() {
         var orig = $('#chats').html('<blink>OMG IT\'s 1998!</blink>');
         app.clearMessages();
@@ -94,7 +94,7 @@ describe('chatterbox', function() {
 
     });
 
-    describe('events', function() {
+    describe('events ***', function() {
       it('should try to send a message upon clicking send button', function() {
         sinon.spy(app, 'handleSubmit');
 
