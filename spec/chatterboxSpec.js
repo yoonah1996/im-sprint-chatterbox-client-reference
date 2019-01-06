@@ -1,112 +1,99 @@
-describe('chatterbox', function() {
-  it('should parse correctly and have an object named `app`', function() {
+describe('chatterbox', () => {
+  it('should parse correctly and have an object named `app`', () => {
     expect(app).to.be.an('object');
   });
 
-  describe('init', function() {
-    it('should have a method called init', function() {
+  describe('init', () => {
+    it('should have a method called init', () => {
       expect(app.init).to.be.ok;
     });
-
   });
 
-  describe('app behavior', function() {
-    var ajaxSpy;
+  describe('app behavior', () => {
+    var fetchSpy;
 
-    before(function() {
-      ajaxSpy = sinon.stub($, 'ajax');
+    before(() => {
+      fetchSpy = sinon.spy(window, 'fetch');
       app.init();
     });
 
-    beforeEach(function() {
-      ajaxSpy.reset();
+    beforeEach(() => {
+      fetchSpy.resetHistory();
     });
 
-    describe('sending *****', function() {
-      it('should have a send method', function() {
+    describe('fetching', () => {
+      it('should have a fetch method', () => {
+        expect(app.fetch).to.be.ok;
+      });
+
+      it('should submit a GET request via window.fetch', (done) => {
+        let url;
+
+        app.fetch();
+        // console.log(window.fetch.args)
+        expect(window.fetch.calledOnce).to.be.true;
+        if(window.fetch.args[0][0]) {
+          url = window.fetch.args[0][0];
+        };
+
+        expect(url).to.equal(app.server);
+        done();
+      });
+    });
+
+    describe('sending', () => {
+      it('should have a send method', () => {
         expect(app.send).to.be.ok;
       });
 
-      it('should submit a POST request via $.ajax', function(done) {
+      it('should submit a POST request via window.fetch', (done) => {
+        let option;
+
         app.send([]);
-        expect($.ajax.calledOnce).to.be.true;
-        // sinon.spy method `args` comes in the form [function calls][arguments from that call]
-        ajaxOptions = typeof $.ajax.args[0][0] === 'object' ? $.ajax.args[0][0] : $.ajax.args[0][1];
-        expect(ajaxOptions.type).to.equal('POST');
+        if(window.fetch.args[0][1]) {
+          option = window.fetch.args[0][1].method;
+        };
+        expect(option.toUpperCase()).to.equal('POST');
+        expect(window.fetch.calledOnce).to.be.true;
+
         done();
       });
 
-      it('should send the correct message along with the request', function(done) {
-        var message = {
+      it('should send the correct message along with the request', (done) => {
+        const message = {
           username: 'Mel Brooks',
           text: 'It\'s good to be the king',
           roomname: 'lobby'
         };
+        let option;
 
         app.send(message);
-        ajaxOptions = typeof $.ajax.args[0][0] === 'object' ? $.ajax.args[0][0] : $.ajax.args[0][1];
-        var result = JSON.parse(ajaxOptions.data);
-        expect(result).to.deep.equal(message);
+        if(window.fetch.args[0][1]) {
+          option = window.fetch.args[0][1].body;
+        };
+        expect(JSON.parse(option)).to.deep.equal(message);
         done();
       });
-
     });
 
-    describe('fetching *****', function() {
-      it('should have a fetch method', function() {
-        expect(app.fetch).to.be.ok;
-      });
+    describe('chatroom behavior', () => {
+      it('clearMessages: should be able to clear messages from the DOM', () => {
+        document.querySelector('#chats').innerHTML = '<div>not blank</div>';
 
-      it('should submit a GET request via $.ajax', function(done) {
-        app.fetch();
-        expect($.ajax.calledOnce).to.be.true;
-        ajaxUrl = typeof $.ajax.args[0][0] === 'string' ? $.ajax.args[0][0] : $.ajax.args[0][0].url;
-        expect(ajaxUrl).to.equal(app.server);
-        done();
-      });
-
-    });
-
-    describe('chatroom behavior **', function() {
-      it('should be able to clear messages from the DOM', function() {
-        var orig = $('#chats').html('<blink>OMG IT\'s 1998!</blink>');
         app.clearMessages();
-        expect($('#chats').children().length).to.equal(0);
+        expect(document.querySelector('#chats').children.length).to.equal(0);
       });
 
-      it('should be able to add messages to the DOM', function() {
-        var message = {
+      it('renderMessage: should be able to add messages to the DOM', () => {
+        const message = {
           username: 'Mel Brooks',
           text: 'Never underestimate the power of the Schwartz!',
           roomname: 'lobby'
         };
 
         app.renderMessage(message);
-
-        expect($('#chats').children().length).to.equal(1);
+        expect(document.querySelector('#chats').children.length).to.equal(1);
       });
-
-      it('should be able to add rooms to the DOM', function() {
-        app.renderRoom('superLobby');
-
-        expect($('#roomSelect').children().length).to.equal(1);
-      });
-
-    });
-
-    describe('events ***', function() {
-      it('should try to send a message upon clicking send button', function() {
-        sinon.spy(app, 'handleSubmit');
-
-        $('#message').val('Why so many Mel Brooks quotes?');
-
-        app.init();
-
-        $('#send').trigger('click');
-        expect(app.handleSubmit.calledOnce).to.be.true;
-
-        app.handleSubmit.restore();
-      });
-    });
+    })
   });
 });
