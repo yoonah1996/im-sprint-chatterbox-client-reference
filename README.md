@@ -1,7 +1,7 @@
 # Chatterbox - Client
 
 ## Get ready for the sprint!
-1. Folk this repo to your github.
+1. Fork this repo to your github.
 2. Clone your repo to the local environment.
 3. Check **students.json**, and put your information in the json.
 ```
