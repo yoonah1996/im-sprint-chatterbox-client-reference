@@ -4,7 +4,8 @@
 1. Folk this repo to your github.
 2. Clone your repo to the local environment.
 3. Check **students.json**, and put your information in the json.
-``` in students.json
+```
+in students.json
 {
     "theClass": "기수를 숫자만! 입력해주세요! 예)10",
     "students": "스프린트를 진행하는 수강생분들의 이름을 한글로! 적어주세요! 예)존도우, 제인도우",
@@ -12,7 +13,8 @@
 }
 ```
 
-``` example
+```
+example
 {
     "theClass": "10", // 숫자만 입력해주세요!
     "students": "존도우, 제인도우", // 한글로 입력, comma(,)로 구분해 주세요!
