@@ -33,7 +33,7 @@ exec('npm test | grep -E \"[0-9]+\\s(passing|failing)\"', (err, stdout1, stderr)
         };
         console.log(JSON.stringify(options.headers));
 
-        studentsArray.forEach(student, student => {
+        studentsArray.forEach(student => {
             const req = https.request(options, (res) => {
                 res.on('data', (chunk) => {
                     console.log(chunk.toString());
