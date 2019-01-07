@@ -28,7 +28,7 @@ after (async function () {
 });
 
 describe('chatterbox client', async function () {
-  tihs.timeout(8000);
+  this.timeout(8000);
 
   before(async function () {
     var cases = await global.page.evaluate(() => {
