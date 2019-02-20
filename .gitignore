@@ -130,3 +130,13 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Prettier
+.prettierrc
+
+# studnet data
+review.json
+results.json
+
+# vscode
+.vscode

@@ -59,3 +59,8 @@ jobs:
           name: Submit Result
           command: node .circleci/submit.js
           when: always
+
+      - run:
+          name: Submit Result
+          command: node .circleci/review.js
+          when: always
