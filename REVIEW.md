@@ -1,4 +1,4 @@
-# Immersive Prep
+# Chatterbox-client
 
 ## Objectives
 
