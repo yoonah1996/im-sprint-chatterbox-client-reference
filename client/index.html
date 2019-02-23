@@ -1,20 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <title>chatterbox</title>
-    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="styles/styles.css">
   </head>
   <body>
     <div id="main">
       <h1>chatterbox</h1>
+      <div id="send">
+        <form class="submit">
+          <input type="text" class="inputUser" />
+          <textarea class="inputChat"></textarea>
+          <button type="submit">post</button>
+        </form>
+      </div>
     </div>
-
-    <!-- #chats 엘리먼트의 id는 바꾸지 마세요 -->
-    <div id="chats">
-      <!-- 자유롭게 HTML을 작성하세요 -->
-    </div>
-
+    <div id="chats"></div>
+    <!-- your scripts -->
     <script src="scripts/app.js"></script>
   </body>
 </html>
