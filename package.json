@@ -2,14 +2,16 @@
   "name": "chatterbox-client",
   "version": "1.0.0",
   "description": "codestates-immersive-course-sprint",
-  "devDependencies": {
+  "dependencies": {
     "chai": "^4.1.2",
     "eslint": "^5.12.0",
     "husky": "^0.14.3",
     "lint-staged": "^7.2.2",
     "mocha": "^5.2.0",
-    "puppeteer": "^1.12.2",
     "sinon": "^7.2.2"
+  },
+  "devDependencies": {
+    "puppeteer": "^1.12.2"
   },
   "scripts": {
     "test": "node __test__/getReview.js && mocha __test__/",
