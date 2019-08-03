@@ -1,7 +1,7 @@
 // YOUR CODE HERE:
 
 const app = {
-  server: 'http://52.78.213.9:3000/messages',
+  server: 'http://52.78.206.149:3000/messages',
   init: () => {
     app.addEventHandlers();
     app.fetch(json => {
