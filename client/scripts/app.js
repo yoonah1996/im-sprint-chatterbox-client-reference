@@ -50,11 +50,24 @@ const app = {
   },
   renderMessage: ({ username, text, date, roomname }) => {
     const tmpl = `<div class="chat">
-      <div class="username">${username}</div>
-      <div>${text}</div>
+      <div class="username">${username
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')}</div>
+      <div>${text
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')}</div>
       <div>${date}</div>
-      <div>${roomname}</div>
+      <div>${roomname
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')}</div>
     </div>`;
+
     document.querySelector('#chats').innerHTML =
       tmpl + document.querySelector('#chats').innerHTML;
   },
