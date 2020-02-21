@@ -74,6 +74,20 @@ form button {
     width: 100px;
 }
 
+form textarea {
+    width: 90%;
+    height: 100px;
+    margin: 5px 0;
+    font-size: 120%;
+    padding: 10px;
+}
+
+form button {
+    font-size: 120%;
+    height: 30px;
+    width: 100px;
+}
+
 .chat {
   padding: 5px;
   margin-bottom: 5px;
