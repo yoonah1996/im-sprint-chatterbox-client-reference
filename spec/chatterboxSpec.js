@@ -1,19 +1,19 @@
-describe('chatterbox', () => {
-  it('should parse correctly and have an object named `app`', () => {
-    expect(app).to.be.an('object');
+describe("chatterbox", () => {
+  it("app이라는 이름의 객체가 존재해야 합니다", () => {
+    expect(app).to.be.an("object");
   });
 
-  describe('init', () => {
-    it('should have a method called init', () => {
+  describe("init", () => {
+    it("init 이라는 이름의 메소드가 존재해야 합니다", () => {
       expect(app.init).to.be.ok;
     });
   });
 
-  describe('app behavior', () => {
+  describe("app behavior", () => {
     var fetchSpy;
 
     before(() => {
-      fetchSpy = sinon.spy(window, 'fetch');
+      fetchSpy = sinon.spy(window, "fetch");
       app.init();
     });
 
@@ -21,79 +21,79 @@ describe('chatterbox', () => {
       fetchSpy.resetHistory();
     });
 
-    describe('fetching', () => {
-      it('should have a fetch method', () => {
+    describe("fetching", () => {
+      it("fetch라는 메소드가 존재해야 합니다", () => {
         expect(app.fetch).to.be.ok;
       });
 
-      it('should submit a GET request via window.fetch', (done) => {
+      it("fetch API를 통해 GET 요청을 제출해야 합니다 (fetch 메소드는 DOM을 조작하지 않아야 합니다)", done => {
         let url;
 
         app.fetch();
         // console.log(window.fetch.args)
         expect(window.fetch.calledOnce).to.be.true;
-        if(window.fetch.args[0][0]) {
+        if (window.fetch.args[0][0]) {
           url = window.fetch.args[0][0];
-        };
+        }
 
         expect(url).to.equal(app.server);
         done();
       });
     });
 
-    describe('sending', () => {
-      it('should have a send method', () => {
+    describe("sending", () => {
+      it("send라는 메소드가 존재해야 합니다", () => {
         expect(app.send).to.be.ok;
       });
 
-      it('should submit a POST request via window.fetch', (done) => {
+      it("fetch API를 통해 POST 요청을 제출해야 합니다 (send 메소드는 DOM을 조작하지 않아야 합니다)", done => {
         let option;
 
         app.send([]);
-        if(window.fetch.args[0][1]) {
+        if (window.fetch.args[0][1]) {
           option = window.fetch.args[0][1].method;
-        };
-        expect(option.toUpperCase()).to.equal('POST');
+        }
+        expect(option.toUpperCase()).to.equal("POST");
         expect(window.fetch.calledOnce).to.be.true;
 
         done();
       });
 
-      it('should send the correct message along with the request', (done) => {
+      it("요청과 함께 메시지를 정확하게 전달해야 합니다", done => {
         const message = {
-          username: 'Mel Brooks',
-          text: 'It\'s good to be the king',
-          roomname: 'lobby'
+          username: "김코딩",
+          text: "나의 채팅 메시지",
+          roomname: "로비"
         };
         let option;
 
         app.send(message);
-        if(window.fetch.args[0][1]) {
+        if (window.fetch.args[0][1]) {
           option = window.fetch.args[0][1].body;
-        };
+        }
         expect(JSON.parse(option)).to.deep.equal(message);
         done();
       });
     });
 
-    describe('chatroom behavior', () => {
-      it('clearMessages: should be able to clear messages from the DOM', () => {
-        document.querySelector('#chats').innerHTML = '<div>not blank</div>';
+    describe("DOM 조작 메소드", () => {
+      it("clearMessages라는 메소드는 DOM에서 메시지를 지웁니다", () => {
+        document.querySelector("#chats").innerHTML = "<div>not blank</div>";
 
         app.clearMessages();
-        expect(document.querySelector('#chats').children.length).to.equal(0);
+        expect(document.querySelector("#chats").children.length).to.equal(0);
       });
 
-      it('renderMessage: should be able to add messages to the DOM', () => {
+      it("renderMessage라는 메소드는 DOM에 메시지 하나를 추가합니다", () => {
         const message = {
-          username: 'Mel Brooks',
-          text: 'Never underestimate the power of the Schwartz!',
-          roomname: 'lobby'
+          username: "Mel Brooks",
+          text: "Never underestimate the power of the Schwartz!",
+          roomname: "lobby"
         };
 
         app.renderMessage(message);
-        expect(document.querySelector('#chats').children.length).to.equal(1);
+        expect(document.querySelector("#chats").children.length).to.equal(1);
       });
-    })
+    });
   });
 });
