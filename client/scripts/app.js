@@ -1,10 +1,11 @@
 // YOUR CODE HERE:
 
 const app = {
-  server: 'http://52.78.206.149:3000/messages',
+  server: 'http://localhost:3000/classes/messages',
   init: () => {
     app.addEventHandlers();
     app.fetch(json => {
+      console.log(json);
       json.forEach(app.renderMessage);
     });
   },
